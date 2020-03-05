@@ -39,7 +39,7 @@ def geocodeRegione(regione):
         coordinates = [10.6469911,46.1015475]
     elif reg == 'Calabria':
         coordinates = [16.446533203125,38.976492485539396]
-    elif reg == 'Valle d\'Aosta':
+    elif reg == "Valle d'Aosta":
         coordinates = [6.8099952,45.7259823]
     elif reg == 'Provincia autonoma di Bolzano':
         coordinates = [11.37359619140625,46.538082005463075]
