@@ -26,6 +26,11 @@ Returns **GeoJSON** data about the last updated outbreaks in each Region.<br/>
 Optional parameter:
 - data (*type: String*, *example: 2020-02-25 18:00*)
 
+#### https://covid19-it-api.herokuapp.com/distribution/regions/overview
+Returns more complete **GeoJSON** data about the last updated outbreaks in each Region.<br/> 
+Optional parameter:
+- data (*type: String*, *example: 2020-02-25 18:00*)
+
 ## Source
 All information comes from <a target="_blank" href="http://www.protezionecivile.gov.it/">Sito del Dipartimento della Protezione Civile - Presidenza del Consiglio dei Ministri</a>
 

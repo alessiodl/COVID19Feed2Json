@@ -52,7 +52,16 @@ num_tintensiva = int(re.findall(r'\d+', terapia_intensiva[0].strip())[0])
 saveTreatments(data, num_isolamento, num_ricoverati, num_tintensiva, csv_trattamento)
 
 # DATI REGIONE PER REGIONE
+# NOTA: 
+# ** 
+#   DAL 3 MARZO IL MINISTERO NON PUBBLICA PIU' SUL SITO IL RIEPILOGO
+#   REGIONALE. QUESTO STEP DELLO SCRAPING E' QUINDI DIVENTATO INUTILE.
+#   IL RIEPILOGO REGIONALE VIENE LETTO DIRETTAMENTE DAL REPO DI ANDREA BORRUSO
+#   CHE LO AGGIORNA A PARTIRE DAL PDF MINISTERIALE OGNI SERA INTORNO ALLE 18:30.
+#   LO STORICO PREGRESSO CREATO DA QUESTO SCRAPING VIENE COMUNQUE MANTENUTO
+# **
 # ############################################################################
+'''
 regioni = tree.xpath("//div/p/strong[.='Regioni']/following::ul[1]/li//text()")
 list_regioni = []
 df = pd.read_csv(csv_regioni)
@@ -69,5 +78,7 @@ for regione in regioni:
     list_regioni.append(pd.Series([aggiornamento, num_casi, nome_regione, lng, lat], index=df.columns ))
 # Salvataggio nello storico
 saveRegions(list_regioni,data,csv_regioni)
+
+'''
 
     

@@ -5,6 +5,7 @@ import json
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import pandas as pd
+from geocodifica import geocodeRegione as gcr
 import os, sys
 script_path = os.path.dirname(sys.argv[0])
 
@@ -107,7 +108,57 @@ def retrieve_regions_last():
     # Create GeoJSON output
     geojson = {'type':'FeatureCollection', 'features':[]}
     for index, row in df_last.iterrows():
-        feature = {'type':'Feature','properties':{'aggiornamento':row['aggiornamento'],'numero_casi': row['numero_casi'],'regione': row['nome_regione']},'geometry':{'type':'Point','coordinates':[ row['lng'], row['lat'] ]}}
+        feature = {'type':'Feature','properties':{
+            'aggiornamento':row['aggiornamento'],'numero_casi': row['numero_casi'],'regione': row['nome_regione']},'geometry':{'type':'Point','coordinates':[ row['lng'], row['lat'] ]}}
+        geojson['features'].append(feature)
+    return geojson
+
+@app.route('/distribution/regions/overview')
+def retrieve_regions_overview():
+    # Date argument
+    data = request.args.get('data')
+    # Read data from the online CSV
+    df = pd.read_csv("https://raw.githubusercontent.com/ondata/covid19italia/master/publication/riepilogoArchivio.csv")
+    #imposta a zero i valori NaN
+    df_ = df.fillna(0)
+    #trova tutte le colonne di tipo float
+    cols = df_.columns[df_.dtypes.eq('float')]
+    #converte le colonne trovate in int
+    df_[cols] = df_[cols].astype(int)
+    # #############################
+    # GEOCODIFICA
+    # #############################
+    df_['lng'] = pd.Series([gcr(name)[0] for name in df_.Regione.values])
+    df_['lat'] = pd.Series([gcr(name)[1] for name in df_.Regione.values])
+
+    # Apply filter if argument is passed
+    if data:
+        out_df = df_[df.datetime == str(data)]
+    else:
+        out_df = df_
+
+    # Create GeoJSON output
+    geojson = {'type':'FeatureCollection', 'features':[]}
+    for index, row in out_df.iterrows():
+        feature = {'type':'Feature','properties':{
+                        'aggiornamento':row['datetime'],
+                        'regione': row['Regione'],
+                        'numero_casi': row['CASI TOTALI'],
+                        'ricoverati_con_sintomi': row['Ricoverati con sintomi'],
+                        'terapia_intensiva': row['Terapia intensiva'],
+                        'isolamento_domiciliare': row['Isolamento domiciliare'],
+                        'totale_positivi': row['Totale attualmente positivi'],
+                        'guariti': row['DIMESSI GUARITI'],
+                        'deceduti': row['DECEDUTI'],
+                        'tamponi': row['TAMPONI']
+                        },
+                        'geometry':{
+                            'type':'Point',
+                            'coordinates':[ 
+                                row['lng'], row['lat'] 
+                            ]
+                        }
+                    }
         geojson['features'].append(feature)
     return geojson
 
