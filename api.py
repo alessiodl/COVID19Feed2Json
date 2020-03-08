@@ -118,44 +118,45 @@ def retrieve_regions_overview():
     # Date argument
     data = request.args.get('data')
     # Read data from the online CSV
-    df = pd.read_csv("https://raw.githubusercontent.com/ondata/covid19italia/master/publication/riepilogoArchivio.csv")
+    df = pd.read_csv("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-regioni/dpc-covid19-ita-regioni.csv")
     #imposta a zero i valori NaN
-    df_ = df.fillna(0)
+    # df_ = df.fillna(0)
     #trova tutte le colonne di tipo float
-    cols = df_.columns[df_.dtypes.eq('float')]
-    #converte le colonne trovate in int
-    df_[cols] = df_[cols].astype(int)
+    # cols = df_.columns[df_.dtypes.eq('float')]
+    # converte le colonne trovate in int
+    # df_[cols] = df_[cols].astype(int)
     # #############################
     # GEOCODIFICA
     # #############################
-    df_['lng'] = pd.Series([gcr(name)[0] for name in df_.Regione.values])
-    df_['lat'] = pd.Series([gcr(name)[1] for name in df_.Regione.values])
+    # df_['lng'] = pd.Series([gcr(name)[0] for name in df_.Regione.values])
+    # df_['lat'] = pd.Series([gcr(name)[1] for name in df_.Regione.values])
 
     # Apply filter if argument is passed
     if data:
-        out_df = df_[df.datetime == str(data)]
+        out_df = df[df.data == str(data)]
     else:
-        out_df = df_
+        out_df = df
 
     # Create GeoJSON output
     geojson = {'type':'FeatureCollection', 'features':[]}
     for index, row in out_df.iterrows():
         feature = {'type':'Feature','properties':{
-                        'aggiornamento':row['datetime'],
-                        'regione': row['Regione'],
-                        'numero_casi': row['CASI TOTALI'],
-                        'ricoverati_con_sintomi': row['Ricoverati con sintomi'],
-                        'terapia_intensiva': row['Terapia intensiva'],
-                        'isolamento_domiciliare': row['Isolamento domiciliare'],
-                        'totale_positivi': row['Totale attualmente positivi'],
-                        'guariti': row['DIMESSI GUARITI'],
-                        'deceduti': row['DECEDUTI'],
-                        'tamponi': row['TAMPONI']
+                        'aggiornamento':row['data'],
+                        'regione': row['denominazione_regione'],
+                        'numero_casi': row['totale_casi'],
+                        'ricoverati_con_sintomi': row['ricoverati_con_sintomi'],
+                        'terapia_intensiva': row['terapia_intensiva'],
+                        'terapia_intensiva': row['totale_ospedalizzati'],
+                        'isolamento_domiciliare': row['isolamento_domiciliare'],
+                        'totale_positivi': row['totale_attualmente_positivi'],
+                        'guariti': row['dimessi_guariti'],
+                        'deceduti': row['deceduti'],
+                        'tamponi': row['tamponi']
                         },
                         'geometry':{
                             'type':'Point',
                             'coordinates':[ 
-                                row['lng'], row['lat'] 
+                                row['long'], row['lat'] 
                             ]
                         }
                     }
