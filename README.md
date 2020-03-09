@@ -1,5 +1,5 @@
 # COVID19Feed2Json
-Python API returning Italian Civil Protection Department and Ministry of Health official COVID19 data in Italy. It is based on daily web scraping activity.
+Python API returning Italian Civil Protection Department and Ministry of Health <a href="https://github.com/pcm-dpc/COVID-19" target="_blank">official COVID19 data in Italy</a>.
 
 ## API END POINTS
 
@@ -20,9 +20,6 @@ Optional parameter:
 Returns **GeoJSON** data about the last updated outbreaks in each Region.<br/> 
 Optional parameter:
 - data (*type: String*, *example: 2020-02-25 18:00*)
-- cod_reg (*type: String*, *example: 3*)
-- cod_pro (*type: String*, *example: 15*)
-
 
 ## Source
 All information comes from <a target="_blank" href="http://www.protezionecivile.gov.it/">Sito del Dipartimento della Protezione Civile - Presidenza del Consiglio dei Ministri</a>
