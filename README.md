@@ -4,20 +4,20 @@ Python API returning Italian Civil Protection Department and Ministry of Health 
 ## API END POINTS
 
 #### https://covid19-it-api.herokuapp.com/info
-Returns **JSON** info about the project
+Return **JSON** info about the project
 
 #### https://covid19-it-api.herokuapp.com/andamento
-Returns **JSON** daily data about infection spread.<br/>
+Return **JSON** daily data about infection spread.<br/>
 Optional parameter:
 - data (*type: String*, *example: 2020-02-25 18:00*)
 
 #### https://covid19-it-api.herokuapp.com/regioni
-Returns **GeoJSON** daily data about the outbreaks in each Region.<br/>
+Return **GeoJSON** daily data about Regional cases distribution.<br/>
 Optional parameter:
 - data (*type: String*, *example: 2020-02-25 18:00*)
 
 #### https://covid19-it-api.herokuapp.com/province
-Returns **GeoJSON** data about the last updated outbreaks in each Region.<br/> 
+Return **GeoJSON** data about Province level cases distribution.<br/> 
 Optional parameter:
 - data (*type: String*, *example: 2020-02-25 18:00*)
 
