@@ -6,30 +6,23 @@ Python API returning Italian Civil Protection Department and Ministry of Health 
 #### https://covid19-it-api.herokuapp.com/info
 Returns **JSON** info about the project
 
-#### https://covid19-it-api.herokuapp.com/summary
-Returns **JSON** daily data about total infected people, positive, deads, recovered.<br/>
+#### https://covid19-it-api.herokuapp.com/andamento
+Returns **JSON** daily data about infection spread.<br/>
 Optional parameter:
 - data (*type: String*, *example: 2020-02-25 18:00*)
 
-#### https://covid19-it-api.herokuapp.com/state
-Returns **JSON** daily data about the sanitary state of infected people.<br/>
-Optional parameter:
-- data (*type: String*, *example: 2020-02-25 18:00*)
-
-#### https://covid19-it-api.herokuapp.com/distribution/regions
+#### https://covid19-it-api.herokuapp.com/regioni
 Returns **GeoJSON** daily data about the outbreaks in each Region.<br/>
 Optional parameter:
 - data (*type: String*, *example: 2020-02-25 18:00*)
 
-#### https://covid19-it-api.herokuapp.com/distribution/regions/last
+#### https://covid19-it-api.herokuapp.com/province
 Returns **GeoJSON** data about the last updated outbreaks in each Region.<br/> 
 Optional parameter:
 - data (*type: String*, *example: 2020-02-25 18:00*)
+- cod_reg (*type: String*, *example: 3*)
+- cod_pro (*type: String*, *example: 15*)
 
-#### https://covid19-it-api.herokuapp.com/distribution/regions/overview
-Returns more complete **GeoJSON** data about the last updated outbreaks in each Region.<br/> 
-Optional parameter:
-- data (*type: String*, *example: 2020-02-25 18:00*)
 
 ## Source
 All information comes from <a target="_blank" href="http://www.protezionecivile.gov.it/">Sito del Dipartimento della Protezione Civile - Presidenza del Consiglio dei Ministri</a>
