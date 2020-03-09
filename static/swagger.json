@@ -1,0 +1,95 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "description": "Civil Protection Department and Ministry of Health official COVID19 data in Italy",
+      "version": "1.0.0",
+      "title": "CODID19-API",
+      "contact": {
+        "email": "alessio.dl@gmail.com"
+      },
+      "license": {
+        "name": "CC BY 4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/deed.it"
+      }
+    },
+    "schemes":["http","https"],
+    "paths":{
+        "/":{
+            "get":{
+                "summary":"Returns General Informations",
+                "responses": {
+                    "200": {
+                      "description": "OK",
+                      "schema": {
+                        "$ref": "#/"
+                      }
+                    }
+                }
+            }
+        },
+        "/andamento":{
+            "get":{
+                "summary":"Returns daily updates about the disease",
+                "parameters": [{
+                    "name": "data",
+                    "in": "path",
+                    "required": false,
+                    "description": "Reference date",
+                    "type": "string",
+                    "example": "2020-03-08 18:00:00"
+                }],
+                "responses": {
+                    "200": {
+                      "description": "OK",
+                      "schema": {
+                        "$ref": "#/andamento"
+                      }
+                    }
+                }
+            }
+        },
+        "/regioni":{
+            "get":{
+                "summary":"Returns daily updates about data at regional level as GeoJSON",
+                "parameters": [{
+                    "name": "data",
+                    "in": "path",
+                    "required": false,
+                    "description": "Reference date",
+                    "type": "string",
+                    "example": "2020-03-08 18:00:00"
+                }],
+                "responses": {
+                    "200": {
+                      "description": "OK",
+                      "schema": {
+                        "$ref": "#/regioni"
+                      }
+                    }
+                }
+            }
+        },
+        "/province":{
+            "get":{
+                "summary":"Returns daily updates about data at provinces level as GeoJSON",
+                "parameters": [{
+                    "name": "data",
+                    "in": "path",
+                    "required": false,
+                    "description": "Reference date",
+                    "type": "string",
+                    "example": "2020-03-08 18:00:00"
+                }],
+                "responses": {
+                    "200": {
+                      "description": "OK",
+                      "schema": {
+                        "$ref": "#/province"
+                      }
+                    }
+                }
+            }
+        }
+    }
+    
+  }

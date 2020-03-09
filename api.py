@@ -4,6 +4,7 @@ from lxml import html
 import json
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+from flask_swagger_ui import get_swaggerui_blueprint
 import pandas as pd
 import os, sys
 script_path = os.path.dirname(sys.argv[0])
@@ -11,18 +12,30 @@ script_path = os.path.dirname(sys.argv[0])
 app = Flask(__name__)
 CORS(app)
 
+### swagger specific ###
+SWAGGER_URL = '/doc'
+API_URL = '/static/swagger.json'
+SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={
+        'app_name': "COVID19 API"
+    }
+)
+app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
+### end swagger specific ###
+
 # API END POINTS
 
 # #####################################################################
 # GENERAL INFO
 # #####################################################################
 @app.route('/')
-@app.route('/info')
-def retrieve_app_info():
+def apiInfo():
     return jsonify({
         'author':'Alessio Di Lorenzo',
-        'description':'Python API returning Italian Civil Protection Department and Ministry of Health official COVID19 data in Italy. It is based on daily web scraping activity',
-        'data_source': 'Ministero della Salute',
+        'description':'Italian Civil Protection Department and Ministry of Health official COVID19 data in Italy',
+        'data_source': 'Dipartimento della Protezione Civile - Presidenza del Consiglio dei Ministri',
         'project_readme':'https://github.com/alessiodl/COVID19Feed2Json/blob/master/README.md',
         'project_home':'https://github.com/alessiodl/COVID19Feed2Json',
     })
@@ -31,7 +44,7 @@ def retrieve_app_info():
 # TREND DATA
 ##########################################################################
 @app.route('/andamento')
-def andamentoNazionale():
+def get_andamento():
     # Date argument
     data = request.args.get('data')
     # Read DPC CSV
@@ -49,7 +62,7 @@ def andamentoNazionale():
 # DISTRIBUTION DATA: REGIONS
 ##########################################################################
 @app.route('/regioni')
-def retrieve_regions_overview():
+def get_regioni():
     # Date argument
     data = request.args.get('data')
     # Read DPC CSV
@@ -91,7 +104,7 @@ def retrieve_regions_overview():
 # DISTRIBUTION DATA: PROVINCES
 ##########################################################################
 @app.route('/province')
-def distribProvince():
+def get_province():
     # Arguments
     data = request.args.get('data')
     codice_regione = request.args.get('codice_regione')
