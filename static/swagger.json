@@ -3,7 +3,7 @@
     "info": {
       "description": "Civil Protection Department and Ministry of Health official COVID19 data in Italy. More info <a target='_blank' href='https://github.com/alessiodl/COVID19Feed2Json'>here</a>",
       "version": "1.0.0",
-      "title": "CODID19-API",
+      "title": "COVID19-API",
       "contact": {
         "email": "alessio.dl@gmail.com"
       },
