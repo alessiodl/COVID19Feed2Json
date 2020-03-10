@@ -3,6 +3,9 @@ Python API returning Italian Civil Protection Department and Ministry of Health 
 
 ## API END POINTS
 
+#### https://covid19-it-api.herokuapp.com/
+API doc
+
 #### https://covid19-it-api.herokuapp.com/info
 Return **JSON** info about the project
 

@@ -1,7 +1,7 @@
 {
     "openapi": "3.0.0",
     "info": {
-      "description": "Civil Protection Department and Ministry of Health official COVID19 data in Italy",
+      "description": "Civil Protection Department and Ministry of Health official COVID19 data in Italy. More info <a target='_blank' href='https://github.com/alessiodl/COVID19Feed2Json'>here</a>",
       "version": "1.0.0",
       "title": "CODID19-API",
       "contact": {
@@ -13,26 +13,24 @@
       }
     },
     "schemes":["http","https"],
+    "produces":["application/json"],
     "paths":{
-        "/":{
+        "/info":{
             "get":{
-                "summary":"Returns General Informations",
+                "summary":"General Informations about the API",
                 "responses": {
                     "200": {
-                      "description": "OK",
-                      "schema": {
-                        "$ref": "#/"
-                      }
+                      "description": "OK"
                     }
                 }
             }
         },
         "/andamento":{
             "get":{
-                "summary":"Returns daily updates about the disease",
+                "summary":"Daily updates about the disease spread",
                 "parameters": [{
                     "name": "data",
-                    "in": "path",
+                    "in": "query",
                     "required": false,
                     "description": "Reference date",
                     "type": "string",
@@ -40,20 +38,17 @@
                 }],
                 "responses": {
                     "200": {
-                      "description": "OK",
-                      "schema": {
-                        "$ref": "#/andamento"
-                      }
+                      "description": "OK"
                     }
                 }
             }
         },
         "/regioni":{
             "get":{
-                "summary":"Returns daily updates about data at regional level as GeoJSON",
+                "summary":"Daily updates about infection distribution at regional level in GeoJSON format",
                 "parameters": [{
                     "name": "data",
-                    "in": "path",
+                    "in": "query",
                     "required": false,
                     "description": "Reference date",
                     "type": "string",
@@ -61,20 +56,17 @@
                 }],
                 "responses": {
                     "200": {
-                      "description": "OK",
-                      "schema": {
-                        "$ref": "#/regioni"
-                      }
+                      "description": "OK"
                     }
                 }
             }
         },
         "/province":{
             "get":{
-                "summary":"Returns daily updates about data at provinces level as GeoJSON",
+                "summary":"Daily updates about infection distribution at provinces level in GeoJSON format",
                 "parameters": [{
                     "name": "data",
-                    "in": "path",
+                    "in": "query",
                     "required": false,
                     "description": "Reference date",
                     "type": "string",
@@ -82,14 +74,11 @@
                 }],
                 "responses": {
                     "200": {
-                      "description": "OK",
-                      "schema": {
-                        "$ref": "#/province"
-                      }
+                      "description": "OK"
                     }
                 }
             }
         }
     }
     
-  }
+}

@@ -1,10 +1,8 @@
-import feedparser
-import requests
-from lxml import html
-import json
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, redirect
 from flask_cors import CORS
 from flask_swagger_ui import get_swaggerui_blueprint
+import requests
+import json
 import pandas as pd
 import os, sys
 script_path = os.path.dirname(sys.argv[0])
@@ -27,17 +25,25 @@ app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
 
 # API END POINTS
 
-# #####################################################################
-# GENERAL INFO
-# #####################################################################
+# ########################################################################
+# ROOT
+# ########################################################################
 @app.route('/')
+def hello():
+    return redirect('/doc')
+
+# ########################################################################
+# GENERAL INFO
+# ########################################################################
+@app.route('/info')
 def apiInfo():
     return jsonify({
         'author':'Alessio Di Lorenzo',
+        'email':'alessio.dl@gmail.com',
         'description':'Italian Civil Protection Department and Ministry of Health official COVID19 data in Italy',
-        'data_source': 'Dipartimento della Protezione Civile - Presidenza del Consiglio dei Ministri',
+        'data_source': 'https://github.com/pcm-dpc/COVID-19',
         'project_readme':'https://github.com/alessiodl/COVID19Feed2Json/blob/master/README.md',
-        'project_home':'https://github.com/alessiodl/COVID19Feed2Json',
+        'project_home':'https://github.com/alessiodl/COVID19Feed2Json'
     })
 
 ##########################################################################
