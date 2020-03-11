@@ -4,6 +4,7 @@ from flask_swagger_ui import get_swaggerui_blueprint
 import requests
 import json
 import pandas as pd
+import geopandas as gpd
 import os, sys
 script_path = os.path.dirname(sys.argv[0])
 
@@ -105,6 +106,21 @@ def get_regioni():
                     }
             geojson['features'].append(feature)
     return geojson
+
+
+@app.route('/regioni/map')
+def get_regioni_map():
+    # Date argument
+    data = request.args.get('data')
+    # Read DPC CSV
+    df = pd.read_csv("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-regioni/dpc-covid19-ita-regioni.csv")
+    # Apply filter if argument is passed
+    if data:
+        out_df = df[df['data'].str.contains(data)]
+        return jsonify({'message':'sviluppo in corso'})
+    else:
+        return jsonify({'meggage':'Il parametro data è obbligatorio'})
+
 
 ##########################################################################
 # DISTRIBUTION DATA: PROVINCES
