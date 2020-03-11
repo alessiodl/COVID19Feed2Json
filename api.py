@@ -59,7 +59,8 @@ def get_andamento():
     df = df.sort_values(by='data', ascending=False)
     # Apply filter if argument is passed
     if data:
-        out_df = df[df.data == str(data)]
+        # out_df = df[df.data == str(data)]
+        out_df = df[df['data'].str.contains(data)]
     else:
         out_df = df
     valori = json.loads(out_df.to_json(orient='records'))
@@ -136,7 +137,8 @@ def get_province():
     df = pd.read_csv("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-province/dpc-covid19-ita-province.csv")
     # Apply filter if argument is passed
     if data:
-        out_df = df[df.data == str(data)]
+        #out_df = df[df.data == str(data)]
+        out_df = df[df['data'].str.contains(data)]
     else:
         out_df = df
     
