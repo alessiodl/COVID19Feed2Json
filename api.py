@@ -76,7 +76,8 @@ def get_regioni():
     df = pd.read_csv("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-regioni/dpc-covid19-ita-regioni.csv")
     # Apply filter if argument is passed
     if data:
-        out_df = df[df.data == str(data)]
+        # out_df = df[df.data == str(data)]
+        out_df = df[df['data'].str.contains(data)]
     else:
         out_df = df
     # Create GeoJSON output
