@@ -6,7 +6,9 @@ import json
 import pandas as pd
 import geopandas as gpd
 import os, sys
+
 script_path = os.path.dirname(sys.argv[0])
+geodata_path = os.path.join(script_path,'static/geo')
 
 app = Flask(__name__)
 CORS(app)
@@ -114,15 +116,34 @@ def get_regioni():
 def get_regioni_map():
     # Date argument
     data = request.args.get('data')
-    # Read DPC CSV
-    df = pd.read_csv("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-regioni/dpc-covid19-ita-regioni.csv")
+    epsg = request.args.get('epsg')
     # Apply filter if argument is passed
     if data:
-        out_df = df[df['data'].str.contains(data)]
-        return jsonify({'message':'sviluppo in corso'})
+        # Read Local GeoJSON
+        gdf = gpd.read_file(os.path.join(geodata_path,'regioni.geojson'))
+        # Rename GDF fields in accord with DPC field names
+        gdf.rename(columns = {"COD_REG": "codice_regione"}, inplace = True)
+        # Change codice_regione from 4 to 41 and 42 for trento and bolzano to permit a correct join
+        gdf.loc[gdf['DEN_REG'] == "Trento", ["codice_regione"]] = 41
+        gdf.loc[gdf['DEN_REG'] == "Bolzano", ["codice_regione"]] = 42
+        # Read DPC CSV
+        df = pd.read_csv("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-regioni/dpc-covid19-ita-regioni.csv")
+        daily_df = df[df['data'].str.contains(data)]
+        # Change codice_regione from 4 to 41 and 42 for trento and bolzano to permit a correct join
+        daily_df.loc[daily_df['denominazione_regione'].str.contains("Trento"), ["codice_regione"]] = 41
+        daily_df.loc[daily_df['denominazione_regione'].str.contains("Bolzano"), ["codice_regione"]] = 42
+        # Merge dataframes to obtain one complete geodataframe
+        out_gdf = gdf.merge(daily_df, on='codice_regione')
+        # Delete unuseful or redundant columns
+        out_gdf.drop(columns=['DEN_REG', 'lat','long'],inplace=True)
+        # Reproject if needed
+        if epsg:
+            out_gdf = out_gdf.to_crs("EPSG:"+epsg)
+        # Out GeoJSON result
+        out_geojson = json.loads(out_gdf.to_json())
+        return jsonify(out_geojson)
     else:
-        return jsonify({'meggage':'Il parametro data è obbligatorio'})
-
+        return jsonify({'meggage':'The \'data\' parameter is mandatory!'})
 
 ##########################################################################
 # DISTRIBUTION DATA: PROVINCES

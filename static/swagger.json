@@ -71,6 +71,13 @@
                     "description": "Reference date",
                     "type": "string",
                     "example": "2020-03-08"
+                },{
+                    "name": "epsg",
+                    "in": "query",
+                    "required": false,
+                    "description": "EPSG Projection code. Default is 4326",
+                    "type": "string",
+                    "example": "3857"
                 }],
                 "responses": {
                     "200": {
