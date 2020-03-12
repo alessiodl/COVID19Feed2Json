@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request, redirect
 from flask_cors import CORS
 from flask_swagger_ui import get_swaggerui_blueprint
+import logging
 import requests
 import json
 import pandas as pd
@@ -13,6 +14,9 @@ geodata_path = os.path.join(static_path,'geo')
 
 app = Flask(__name__)
 CORS(app)
+
+app.logger.addHandler(logging.StreamHandler(sys.stdout))
+app.logger.setLevel(logging.ERROR)
 
 ### swagger specific ###
 SWAGGER_URL = '/doc'
