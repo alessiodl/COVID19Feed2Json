@@ -15,8 +15,11 @@ geodata_path = os.path.join(static_path,'geo')
 app = Flask(__name__)
 CORS(app)
 
-app.logger.addHandler(logging.StreamHandler(sys.stdout))
-app.logger.setLevel(logging.ERROR)
+### Logging
+if __name__ != '__main__':
+    gunicorn_logger = logging.getLogger('gunicorn.error')
+    app.logger.handlers = gunicorn_logger.handlers
+    app.logger.setLevel(gunicorn_logger.level)
 
 ### swagger specific ###
 SWAGGER_URL = '/doc'
