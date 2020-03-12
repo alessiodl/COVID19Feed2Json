@@ -8,7 +8,8 @@ import geopandas as gpd
 import os, sys
 
 script_path = os.path.dirname(sys.argv[0])
-geodata_path = os.path.join(script_path,'static/geo')
+static_path = os.path.join(script_path,'static')
+geodata_path = os.path.join(static_path,'geo')
 
 app = Flask(__name__)
 CORS(app)
