@@ -137,9 +137,6 @@ def get_regioni_map():
         out_gdf = gdf.merge(daily_df, on='codice_regione')
         # Delete unuseful or redundant columns
         out_gdf.drop(columns=['DEN_REG', 'lat','long'],inplace=True)
-        # Reproject if needed
-        if epsg:
-            out_gdf = out_gdf.to_crs("EPSG:"+epsg)
         # Out GeoJSON result
         out_geojson = json.loads(out_gdf.to_json())
         return jsonify(out_geojson)
