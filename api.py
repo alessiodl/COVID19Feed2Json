@@ -6,11 +6,7 @@ import requests
 import json
 import pandas as pd
 import geopandas as gpd
-import os, sys
-
-script_path = os.path.dirname(sys.argv[0])
-static_path = os.path.join(script_path,'static')
-geodata_path = os.path.join(static_path,'geo')
+import os,sys
 
 app = Flask(__name__)
 CORS(app)
@@ -128,7 +124,7 @@ def get_regioni_map():
     # Apply filter if argument is passed
     if data:
         # Read Local GeoJSON
-        gdf = gpd.read_file(os.path.join(geodata_path,'regioni.geojson'))
+        gdf = gpd.read_file('static/geo/regioni.geojson')
         # Rename GDF fields in accord with DPC field names
         gdf.rename(columns = {"COD_REG": "codice_regione"}, inplace = True)
         # Change codice_regione from 4 to 41 and 42 for trento and bolzano to permit a correct join
