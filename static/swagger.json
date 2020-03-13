@@ -81,7 +81,7 @@
         },
         "/province":{
             "get":{
-                "summary":"Daily updates about infection distribution at provinces level in GeoJSON format",
+                "summary":"Daily updates about infection distribution at provinces level in GeoJSON Point format",
                 "parameters": [{
                     "name": "data",
                     "in": "query",
@@ -96,7 +96,25 @@
                     }
                 }
             }
-        }
+        },
+        "/province/map":{
+            "get":{
+                "summary":"Daily updates about infection distribution at province level in GeoJSON Polygon format",
+                "parameters": [{
+                    "name": "data",
+                    "in": "query",
+                    "required": true,
+                    "description": "Reference date",
+                    "type": "string",
+                    "example": "2020-03-08"
+                }],
+                "responses": {
+                    "200": {
+                      "description": "OK"
+                    }
+                }
+            }
+        },
     }
     
 }

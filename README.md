@@ -24,8 +24,11 @@ Return **GeoJSON** data about Province level cases distribution.<br/>
 Optional parameter:
 - data (*type: String*, *example: 2020-02-25 18:00*)
 
-## Source
+## Data Source
 All information comes from <a target="_blank" href="http://www.protezionecivile.gov.it/">Sito del Dipartimento della Protezione Civile - Presidenza del Consiglio dei Ministri</a>
+
+## Real life example
+A Dashboard application showing the exposed data can be tested <a href="https://alessiodl.github.io/COVID19Dashboard/dist/index.html" target="_blank">here</a>
 
 ## Thanks...
 ...to my friend <a href="https://github.com/aborruso">Andrea Borruso</a> for his precious suggestions and encouragement

@@ -115,16 +115,14 @@ def get_regioni():
             geojson['features'].append(feature)
     return geojson
 
-
 @app.route('/regioni/map')
 def get_regioni_map():
     # Date argument
     data = request.args.get('data')
-    epsg = request.args.get('epsg')
     # Apply filter if argument is passed
     if data:
         # Read Local GeoJSON
-        gdf = gpd.read_file('static/geo/regioni.geojson')
+        gdf = gpd.read_file('static/geo/reg_simple.shp')
         # Rename GDF fields in accord with DPC field names
         gdf.rename(columns = {"COD_REG": "codice_regione"}, inplace = True)
         # Change codice_regione from 4 to 41 and 42 for trento and bolzano to permit a correct join
@@ -189,6 +187,31 @@ def get_province():
                     }
         geojson['features'].append(feature)
     return geojson
+
+@app.route('/province/map')
+def get_province_map():
+    # Date argument
+    data = request.args.get('data')
+    # Apply filter if argument is passed
+    if data:
+        # Read Local GeoJSON
+        gdf = gpd.read_file('static/geo/prov_simple.shp')
+        # Rename GDF fields in accord with DPC field names
+        gdf.rename(columns = {"COD_PROV": "codice_provincia"}, inplace = True)
+        # Read DPC CSV
+        df = pd.read_csv("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-province/dpc-covid19-ita-province.csv")
+        # exlude 'In fase di definizione/aggiornamento' where sigla_provincia is NaN
+        df_ = df[df['sigla_provincia'].notna()]
+        daily_df = df_[df_['data'].str.contains(data)]
+        # Merge dataframes to obtain one complete geodataframe
+        out_gdf = gdf.merge(daily_df, on='codice_provincia')
+        # Delete unuseful or redundant columns
+        out_gdf.drop(columns=['SIGLA','COD_REG','DEN_PROV','lat','long','stato'],inplace=True)
+        # Out GeoJSON result
+        out_geojson = json.loads(out_gdf.to_json())
+        return jsonify(out_geojson)
+    else:
+        return jsonify({'meggage':'The \'data\' parameter is mandatory!'})
 
 if __name__ == '__main__':
     app.run(debug=True)
