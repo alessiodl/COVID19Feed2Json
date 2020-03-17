@@ -174,12 +174,12 @@ def get_province():
         feature = {'type':'Feature','properties':{
                     'data':row['data'],
                     'stato':row['stato'],
-                    'regione': row['denominazione_regione'],
-                    'regione_codice': row['codice_regione'],
-                    'provincia': row['denominazione_provincia'],
-                    'provincia_sigla': row['sigla_provincia'],
-                    'provincia_codice': row['codice_provincia'],
-                    'numero_casi': row['totale_casi']
+                    'denominazione_regione': row['denominazione_regione'],
+                    'codice_regione': row['codice_regione'],
+                    'denominazione_provincia': row['denominazione_provincia'],
+                    'sigla_provincia': row['sigla_provincia'],
+                    'codice_provincia': row['codice_provincia'],
+                    'totale_casi': row['totale_casi']
                     },
                     'geometry':{
                             'type':'Point',
