@@ -89,6 +89,27 @@
                     "description": "Reference date",
                     "type": "string",
                     "example": "2020-03-08"
+                },{
+                    "name": "cod_reg",
+                    "in": "query",
+                    "required": false,
+                    "description": "ISTAT code of the region",
+                    "type": "string",
+                    "example": "3"
+                },{
+                    "name": "cod_prov",
+                    "in": "query",
+                    "required": false,
+                    "description": "ISTAT code of the province",
+                    "type": "string",
+                    "example": "15"
+                },{
+                    "name": "sigla_prov",
+                    "in": "query",
+                    "required": false,
+                    "description": "province short name",
+                    "type": "string",
+                    "example": "MI"
                 }],
                 "responses": {
                     "200": {

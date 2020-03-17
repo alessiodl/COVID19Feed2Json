@@ -151,19 +151,22 @@ def get_regioni_map():
 def get_province():
     # Arguments
     data = request.args.get('data')
-    codice_regione = request.args.get('codice_regione')
-    codice_provincia = request.args.get('codice_provincia')
+    codice_regione = request.args.get('cod_reg')
+    codice_provincia = request.args.get('cod_prov')
+    sigla_provincia = request.args.get('sigla_prov')
     # Read DPC CSV
     df = pd.read_csv("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-province/dpc-covid19-ita-province.csv")
-    # Apply filter if argument is passed
+    # Apply filter if arguments are passed
     if data:
-        #out_df = df[df.data == str(data)]
-        out_df = df[df['data'].str.contains(data)]
-    else:
-        out_df = df
-    
+        df = df[df['data'].str.contains(data)]
+    if codice_regione:
+        df = df[df['codice_regione'] == int(codice_regione) ]
+    if codice_provincia:
+        df = df[df['codice_provincia'] == int(codice_provincia)]
+    if sigla_provincia:
+        df = df[df['sigla_provincia'] == str(sigla_provincia)]
     # exlude 'In fase di definizione/aggiornamento' where sigla_provincia is NaN
-    df_ = out_df[out_df['sigla_provincia'].notna()]
+    df_ = df[df['sigla_provincia'].notna()]
 
     # Create GeoJSON output
     geojson = {'type':'FeatureCollection', 'features':[]}
