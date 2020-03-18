@@ -79,29 +79,30 @@ def get_andamento():
 def get_regioni():
     # Date argument
     data = request.args.get('data')
+    codice_regione = request.args.get('cod_reg')
     # Read DPC CSV
     df = pd.read_csv("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-regioni/dpc-covid19-ita-regioni.csv")
-    # Apply filter if argument is passed
+    # Apply filters if argument are passed
     if data:
-        # out_df = df[df.data == str(data)]
-        out_df = df[df['data'].str.contains(data)]
-    else:
-        out_df = df
+        df = df[df['data'].str.contains(data)]
+    if codice_regione:
+        df = df[df['codice_regione'] == int(codice_regione) ]
     # Create GeoJSON output
     geojson = {'type':'FeatureCollection', 'features':[]}
-    for index, row in out_df.iterrows():
+    for index, row in df.iterrows():
         # exlude not georeferenced data
         if row['long'] != 0 and row['lat'] != 0:
             feature = {'type':'Feature','properties':{
                         'data':row['data'],
-                        'regione': row['denominazione_regione'],
-                        'numero_casi': row['totale_casi'],
+                        'codice_regione': row['codice_regione'],
+                        'denominazione_regione': row['denominazione_regione'],
+                        'totale_casi': row['totale_casi'],
                         'ricoverati_con_sintomi': row['ricoverati_con_sintomi'],
                         'terapia_intensiva': row['terapia_intensiva'],
-                        'terapia_intensiva': row['totale_ospedalizzati'],
+                        'totale_ospitalizzati': row['totale_ospedalizzati'],
                         'isolamento_domiciliare': row['isolamento_domiciliare'],
-                        'totale_positivi': row['totale_attualmente_positivi'],
-                        'guariti': row['dimessi_guariti'],
+                        'totale_attualmente_positivi': row['totale_attualmente_positivi'],
+                        'dimessi_guariti': row['dimessi_guariti'],
                         'deceduti': row['deceduti'],
                         'tamponi': row['tamponi']
                         },

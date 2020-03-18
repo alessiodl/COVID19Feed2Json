@@ -53,6 +53,13 @@
                     "description": "Reference date",
                     "type": "string",
                     "example": "2020-03-08"
+                },{
+                    "name": "cod_reg",
+                    "in": "query",
+                    "required": false,
+                    "description": "ISTAT code of the region",
+                    "type": "string",
+                    "example": "3"
                 }],
                 "responses": {
                     "200": {
