@@ -217,5 +217,67 @@ def get_province_map():
     else:
         return jsonify({'meggage':'The \'data\' parameter is mandatory!'})
 
+##########################################################################
+# DISTRIBUTION DATA: COMUNI (NOT OFFICIAL!)
+##########################################################################
+@app.route('/comuni')
+def get_comuni():
+    # Arguments
+    data = request.args.get('data')
+    codice_regione = request.args.get('cod_reg')
+    codice_provincia = request.args.get('cod_prov')
+    codice_istat = request.args.get('cod_istat')
+    # Read DPC CSV
+    df = pd.read_csv("https://raw.githubusercontent.com/alessiodl/COVID19Abruzzo/master/dati-comuni/izsam-covid19-ita-comuni.csv")
+    # Apply filter if arguments are passed
+    if data:
+        df = df[df['data'].str.contains(data)]
+    if codice_regione:
+        df = df[df['codice_regione'] == int(codice_regione) ]
+    if codice_provincia:
+        df = df[df['codice_provincia'] == int(codice_provincia)]
+    if codice_istat:
+        df = df[df['codice_istat'] == int(codice_istat)]
+    # Sort by number of cases
+    df = df.sort_values(by='totale_casi', ascending=False)
+    # Out GeoJSON result
+    out_geojson = json.loads(df.to_json(orient='records'))
+    return jsonify(out_geojson)
+
+@app.route('/comuni/map')
+def get_comuni_map():
+    # Date argument - mandatory
+    data = request.args.get('data')
+    # ISTAT arguments - optional
+    codice_regione = request.args.get('cod_reg')
+    codice_provincia = request.args.get('cod_prov')
+    codice_istat = request.args.get('cod_istat')
+    # Apply filter if argument is passed
+    if data:
+        # Read Local GeoJSON
+        gdf = gpd.read_file('static/geo/abruzzo_simple.shp')
+        # Rename GDF fields in accord with DPC field names
+        gdf.rename(columns = {"PRO_COM": "codice_istat"}, inplace = True)
+        # Read DPC CSV
+        df = pd.read_csv("https://raw.githubusercontent.com/alessiodl/COVID19Abruzzo/master/dati-comuni/izsam-covid19-ita-comuni.csv")
+        daily_df = df[df['data'].str.contains(data)]
+        if codice_regione:
+            daily_df = daily_df[daily_df['codice_regione'] == int(codice_regione) ]
+        if codice_provincia:
+            daily_df = daily_df[daily_df['codice_provincia'] == int(codice_provincia)]
+        if codice_istat:
+            daily_df = daily_df[daily_df['codice_istat'] == int(codice_istat)]
+        # Merge dataframes to obtain one complete geodataframe
+        out_gdf = gdf.merge(daily_df, on='codice_istat')
+        
+        # Delete unuseful or redundant columns
+        out_gdf.drop(columns=['COMUNE','Shape_Area','Shape_Leng'],inplace=True)
+        # Out GeoJSON result
+        out_geojson = json.loads(out_gdf.to_json())
+        return jsonify(out_geojson)
+    else:
+        return jsonify({'meggage':'The \'data\' parameter is mandatory!'})
+
+
 if __name__ == '__main__':
     app.run(debug=True)
