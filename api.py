@@ -167,8 +167,8 @@ def get_province():
     if sigla_provincia:
         df = df[df['sigla_provincia'] == str(sigla_provincia)]
     # exlude 'In fase di definizione/aggiornamento' where sigla_provincia is empty
-    df_ = df[df['sigla_provincia'] != ""]
-    gdf = gpd.GeoDataFrame(df_, geometry=gpd.points_from_xy(df_.long, df.lat))
+    df_ = df[df['lat'] != 0]
+    gdf = gpd.GeoDataFrame(df_, geometry=gpd.points_from_xy(df_.long, df_.lat))
     # Out GeoJSON result
     out_geojson = json.loads(gdf.to_json())
     return jsonify(out_geojson)
@@ -186,7 +186,7 @@ def get_province_map():
         # Read DPC CSV
         df = pd.read_csv("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-province/dpc-covid19-ita-province.csv")
         # exlude 'In fase di definizione/aggiornamento' where sigla_provincia is empty
-        df_ = df[df['sigla_provincia'] != ""]
+        df_ = df[df['lat'] != 0]
         daily_df = df_[df_['data'].str.contains(data)]
         # Merge dataframes to obtain one complete geodataframe
         out_gdf = gdf.merge(daily_df, on='codice_provincia')
