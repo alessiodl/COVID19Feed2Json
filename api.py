@@ -166,31 +166,12 @@ def get_province():
         df = df[df['codice_provincia'] == int(codice_provincia)]
     if sigla_provincia:
         df = df[df['sigla_provincia'] == str(sigla_provincia)]
-    # exlude 'In fase di definizione/aggiornamento' where sigla_provincia is NaN
+    # exlude 'In fase di definizione/aggiornamento' where sigla_provincia is empty
     df_ = df[df['sigla_provincia'] != ""]
-
-    # Create GeoJSON output
-    geojson = {'type':'FeatureCollection', 'features':[]}
-    for index, row in df_.iterrows():
-        feature = {'type':'Feature','properties':{
-                    'data':row['data'],
-                    'stato':row['stato'],
-                    'denominazione_regione': row['denominazione_regione'],
-                    'codice_regione': row['codice_regione'],
-                    'denominazione_provincia': row['denominazione_provincia'],
-                    'sigla_provincia': row['sigla_provincia'],
-                    'codice_provincia': row['codice_provincia'],
-                    'totale_casi': row['totale_casi']
-                    },
-                    'geometry':{
-                            'type':'Point',
-                            'coordinates':[ 
-                                row['long'], row['lat'] 
-                            ]
-                        }
-                    }
-        geojson['features'].append(feature)
-    return geojson
+    gdf = gpd.GeoDataFrame(df_, geometry=gpd.points_from_xy(df_.long, df.lat))
+    # Out GeoJSON result
+    out_geojson = json.loads(gdf.to_json())
+    return jsonify(out_geojson)
 
 @app.route('/province/map')
 def get_province_map():
@@ -204,7 +185,7 @@ def get_province_map():
         gdf.rename(columns = {"COD_PROV": "codice_provincia"}, inplace = True)
         # Read DPC CSV
         df = pd.read_csv("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-province/dpc-covid19-ita-province.csv")
-        # exlude 'In fase di definizione/aggiornamento' where sigla_provincia is NaN
+        # exlude 'In fase di definizione/aggiornamento' where sigla_provincia is empty
         df_ = df[df['sigla_provincia'] != ""]
         daily_df = df_[df_['data'].str.contains(data)]
         # Merge dataframes to obtain one complete geodataframe
