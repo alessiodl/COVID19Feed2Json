@@ -267,7 +267,7 @@ def get_covid19_hospitals():
     # Arguments
     codice_regione = request.args.get('cod_reg')
     # Read DPC CSV
-    df = pd.read_csv("static/ospedali/ospedali_COVID19.csv",sep=';')
+    df = pd.read_csv("static/ospedali/ospedali_COVID19.csv")
     # Apply filter if argument is passed
     if codice_regione:
         df = df[df['codice_regione'] == int(codice_regione)]
@@ -282,7 +282,7 @@ def get_covid19_hospitals_post():
     # Arguments
     codice_regione = request.args.get('cod_reg')
     # Read DPC CSV
-    df = pd.read_csv("static/ospedali/ospedali_COVID19_post_acuzie.csv",sep=';')
+    df = pd.read_csv("static/ospedali/ospedali_COVID19_post_acuzie.csv")
     # Apply filter if argument is passed
     if codice_regione:
         df = df[df['codice_regione'] == int(codice_regione)]
@@ -297,7 +297,7 @@ def get_covid19_hospitals_other():
     # Arguments
     codice_regione = request.args.get('cod_reg')
     # Read DPC CSV
-    df = pd.read_csv("static/ospedali/ospedali_COVID19_altre_strutture.csv",sep=';')
+    df = pd.read_csv("static/ospedali/ospedali_COVID19_altre_strutture.csv")
     # Apply filter if argument is passed
     if codice_regione:
         df = df[df['codice_regione'] == int(codice_regione)]
@@ -306,6 +306,8 @@ def get_covid19_hospitals_other():
     # Out GeoJSON result
     out_geojson = json.loads(gdf.to_json())
     return jsonify(out_geojson)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

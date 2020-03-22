@@ -1,49 +1,49 @@
-codice_regione;denominazione_regione;ente;codice_tipo_struttura;tipo_struttura;denominazione_struttura;indirizzo;tel;lat;long;post_acuzie_attivi;post_acuzie_attivabili;post_acuzie_tot;url
-14;Puglia;;3;Ospedale pubblico;Ospedale Teresa Masselli Mascia - San Severo;;;41.690805;15.386947;0;0;0;
-14;Puglia;;3;Ospedale pubblico;Ospedale Giuseppe Tatarella – Cerignola;;;41.272479;15.918606;0;0;0;
-14;Puglia;;3;Ospedale pubblico;Ospedale San Camillo de' Lellis – Manfredonia;;;41.633130;15.919008;0;0;0;
-14;Puglia;;3;Ospedale pubblico;Ospedale Monsignor Dimiccoli - Barletta;;;41.313395;16.253501;0;0;0;
-14;Puglia;;3;Ospedale pubblico;Ospedale Lorenzo Bonomo - Andria;;;41.229264;16.303556;0;0;0;
-14;Puglia;;3;Ospedale pubblico;IRCCS Oncologico di Bari;;;41.106297;16.857963;0;0;0;
-14;Puglia;;3;Ospedale pubblico;IRCCS Saverio de Bellis - Castellana Grotte;;;40.883816;17.155516;0;0;0;
-14;Puglia;;3;Ospedale pubblico;Ospedale Pediatrico Giovanni XXIII – Bari;;;41.098413;16.887134;0;0;0;
-14;Puglia;;3;Ospedale pubblico;Ospedale Di Venere - Carbonara di Bari;;;41.076255;16.862704;0;0;0;
-14;Puglia;;3;Ospedale pubblico;Ospedale San Paolo – Bari;;;41.118967;16.781424;0;0;0;
-14;Puglia;;3;Ospedale pubblico;Ospedale della Murgia – Altamura;;;40.820200;16.469547;0;0;0;
-14;Puglia;;3;Ospedale pubblico;Ospedale Don Tonino Bello – Molfetta;;;41.191657;16.591489;0;0;0;
-14;Puglia;;3;Ospedale pubblico;Ospedale San Giacomo – Monopoli;;;40.948946;17.297750;0;0;0;
-14;Puglia;;3;Ospedale pubblico;Ospedale Santa Maria degli Angeli – Putignano;;;40.852011;17.117583;0;0;0;
-14;Puglia;;3;Ospedale pubblico;Ospedale Umberto I – Corato;;;41.146286;16.423967;0;0;0;
-14;Puglia;;3;Ospedale pubblico;Ospedale Civile – Castellaneta;;;40.632936;16.934234;0;0;0;
-14;Puglia;;3;Ospedale pubblico;Ospedale Valle d'Itria - Martina Franca;;;40.705789;17.343493;0;0;0;
-14;Puglia;;3;Ospedale pubblico;Ospedale Marianna Giannuzzi – Manduria;;;40.402758;17.640336;0;0;0;
-14;Puglia;;3;Ospedale pubblico;Ospedale Civile – Ostuni;;;40.726261;17.573544;0;0;0;
-14;Puglia;;3;Ospedale pubblico;Ospedale Dario Camberlingo - Francavilla Fontana;;;40.539484;17.577380;0;0;0;
-14;Puglia;;3;Ospedale pubblico;Ospedale Francesco Ferrari – Casarano;;;40.018168;18.157194;0;0;0;
-14;Puglia;;3;Ospedale pubblico;Ospedale Sacro Cuore – Gallipoli;;;40.056593;18.014695;0;0;0;
-14;Puglia;;3;Ospedale pubblico;Ospedale San Giuseppe da Copertino – Copertino;;;40.278629;18.046513;0;0;0;
-14;Puglia;;3;Ospedale pubblico;Ospedale Santa Caterina Novella – Galatina;;;40.176254;18.158437;0;0;0;
-14;Puglia;;3;Ospedale pubblico;Ospedale Veris Delli Ponti – Scorrano;;;40.093902;18.300851;0;0;0;
-14;Puglia;;3;Ente ecclesiastico;Ospedale Cardinale Panico – Tricase;;;39.936084;18.356376;0;0;0;
-14;Puglia;;3;Ente ecclesiastico;Ospedale Casa Sollievo Sofferenza - San Giovanni Rotondo;;;41.709199;15.707296;0;0;0;
-14;Puglia;;3;Struttura privata;CdC CBH Mater Dei Hospital - Bari;;;41.098106;16.885625;0;0;0;
-14;Puglia;;3;Struttura privata;CCRR Villa Serena e San Francesco - Foggia;;;41.453268;15.544046;0;0;0;
-14;Puglia;;3;Struttura privata;CdC Bernardini - Taranto;;;40.440294;17.261661;0;0;0;
-14;Puglia;;3;Struttura privata;CdC Città di Lecce Hospital - Lecce;;;40.340676;18.129201;0;0;0;
-14;Puglia;;3;Struttura privata;CdC Cittadella della Carità - Taranto;;;40.522950;17.283702;0;0;0;
-14;Puglia;;3;Struttura privata;CdC Congregazione Divina Provvidenza - Bisceglie;;;41.242404;16.497513;0;0;0;
-14;Puglia;;3;Struttura privata;CdC D'Amore Hospital - Taranto;;;40.464271;17.269367;0;0;0;
-14;Puglia;;3;Struttura privata;CdC Leonardo De Luca - Castelnuovo Daunia;;;41.577502;15.114506;0;0;0;
-14;Puglia;;3;Struttura privata;CdC Petrucciani;;;40.355691;18.196797;0;0;0;
-14;Puglia;;3;Struttura privata;CdC Professor Brodetti - Foggia;;;41.459441;15.535732;0;0;0;
-14;Puglia;;3;Struttura privata;CdC Salus;;;40.629157;17.923878;0;0;0;
-14;Puglia;;3;Struttura privata;CdC San Camillo - Taranto;;;40.490167;17.230116;0;0;0;
-14;Puglia;;3;Struttura privata;CdC San Francesco - Galatina;;;40.173034;18.166533;0;0;0;
-14;Puglia;;3;Struttura privata;CdC San Michele - Manfredonia;;;41.635116;15.914041;0;0;0;
-14;Puglia;;3;Struttura privata;CdC Santa Maria - Bari;;;41.108483;16.862066;0;0;0;
-14;Puglia;;3;Struttura privata;CdC Santa Maria Bambina - Foggia;;;41.467672;15.526881;0;0;0;
-14;Puglia;;3;Struttura privata;CdC Santa Rita - Taranto;;;40.458839;17.267213;0;0;0;
-14;Puglia;;3;Struttura privata;CdC Villa Bianca - Martina Franca;;;40.630887;17.316386;0;0;0;
-14;Puglia;;3;Struttura privata;CdC Villa Verde - Lecce;;;40.342265;18.142740;0;0;0;
-14;Puglia;;3;Struttura privata;CdC Villa Verde - Taranto;;;40.447792;17.275139;0;0;0;
-14;Puglia;;3;Struttura privata;Centro Medico Riabilitazione Maugeri - Ginosa;;;40.427227;16.886305;0;0;0;
+codice_regione,denominazione_regione,ente,codice_tipo_struttura,tipo_struttura,denominazione_struttura,indirizzo,tel,lat,long,post_acuzie_attivi,post_acuzie_attivabili,post_acuzie_tot,url
+14,Puglia,,3,Ospedale pubblico,Ospedale Teresa Masselli Mascia - San Severo,,,41.690805,15.386947,0,0,0,
+14,Puglia,,3,Ospedale pubblico,Ospedale Giuseppe Tatarella – Cerignola,,,41.272479,15.918606,0,0,0,
+14,Puglia,,3,Ospedale pubblico,Ospedale San Camillo de' Lellis – Manfredonia,,,41.633130,15.919008,0,0,0,
+14,Puglia,,3,Ospedale pubblico,Ospedale Monsignor Dimiccoli - Barletta,,,41.313395,16.253501,0,0,0,
+14,Puglia,,3,Ospedale pubblico,Ospedale Lorenzo Bonomo - Andria,,,41.229264,16.303556,0,0,0,
+14,Puglia,,3,Ospedale pubblico,IRCCS Oncologico di Bari,,,41.106297,16.857963,0,0,0,
+14,Puglia,,3,Ospedale pubblico,IRCCS Saverio de Bellis - Castellana Grotte,,,40.883816,17.155516,0,0,0,
+14,Puglia,,3,Ospedale pubblico,Ospedale Pediatrico Giovanni XXIII – Bari,,,41.098413,16.887134,0,0,0,
+14,Puglia,,3,Ospedale pubblico,Ospedale Di Venere - Carbonara di Bari,,,41.076255,16.862704,0,0,0,
+14,Puglia,,3,Ospedale pubblico,Ospedale San Paolo – Bari,,,41.118967,16.781424,0,0,0,
+14,Puglia,,3,Ospedale pubblico,Ospedale della Murgia – Altamura,,,40.820200,16.469547,0,0,0,
+14,Puglia,,3,Ospedale pubblico,Ospedale Don Tonino Bello – Molfetta,,,41.191657,16.591489,0,0,0,
+14,Puglia,,3,Ospedale pubblico,Ospedale San Giacomo – Monopoli,,,40.948946,17.297750,0,0,0,
+14,Puglia,,3,Ospedale pubblico,Ospedale Santa Maria degli Angeli – Putignano,,,40.852011,17.117583,0,0,0,
+14,Puglia,,3,Ospedale pubblico,Ospedale Umberto I – Corato,,,41.146286,16.423967,0,0,0,
+14,Puglia,,3,Ospedale pubblico,Ospedale Civile – Castellaneta,,,40.632936,16.934234,0,0,0,
+14,Puglia,,3,Ospedale pubblico,Ospedale Valle d'Itria - Martina Franca,,,40.705789,17.343493,0,0,0,
+14,Puglia,,3,Ospedale pubblico,Ospedale Marianna Giannuzzi – Manduria,,,40.402758,17.640336,0,0,0,
+14,Puglia,,3,Ospedale pubblico,Ospedale Civile – Ostuni,,,40.726261,17.573544,0,0,0,
+14,Puglia,,3,Ospedale pubblico,Ospedale Dario Camberlingo - Francavilla Fontana,,,40.539484,17.577380,0,0,0,
+14,Puglia,,3,Ospedale pubblico,Ospedale Francesco Ferrari – Casarano,,,40.018168,18.157194,0,0,0,
+14,Puglia,,3,Ospedale pubblico,Ospedale Sacro Cuore – Gallipoli,,,40.056593,18.014695,0,0,0,
+14,Puglia,,3,Ospedale pubblico,Ospedale San Giuseppe da Copertino – Copertino,,,40.278629,18.046513,0,0,0,
+14,Puglia,,3,Ospedale pubblico,Ospedale Santa Caterina Novella – Galatina,,,40.176254,18.158437,0,0,0,
+14,Puglia,,3,Ospedale pubblico,Ospedale Veris Delli Ponti – Scorrano,,,40.093902,18.300851,0,0,0,
+14,Puglia,,3,Ente ecclesiastico,Ospedale Cardinale Panico – Tricase,,,39.936084,18.356376,0,0,0,
+14,Puglia,,3,Ente ecclesiastico,Ospedale Casa Sollievo Sofferenza - San Giovanni Rotondo,,,41.709199,15.707296,0,0,0,
+14,Puglia,,3,Struttura privata,CdC CBH Mater Dei Hospital - Bari,,,41.098106,16.885625,0,0,0,
+14,Puglia,,3,Struttura privata,CCRR Villa Serena e San Francesco - Foggia,,,41.453268,15.544046,0,0,0,
+14,Puglia,,3,Struttura privata,CdC Bernardini - Taranto,,,40.440294,17.261661,0,0,0,
+14,Puglia,,3,Struttura privata,CdC Città di Lecce Hospital - Lecce,,,40.340676,18.129201,0,0,0,
+14,Puglia,,3,Struttura privata,CdC Cittadella della Carità - Taranto,,,40.522950,17.283702,0,0,0,
+14,Puglia,,3,Struttura privata,CdC Congregazione Divina Provvidenza - Bisceglie,,,41.242404,16.497513,0,0,0,
+14,Puglia,,3,Struttura privata,CdC D'Amore Hospital - Taranto,,,40.464271,17.269367,0,0,0,
+14,Puglia,,3,Struttura privata,CdC Leonardo De Luca - Castelnuovo Daunia,,,41.577502,15.114506,0,0,0,
+14,Puglia,,3,Struttura privata,CdC Petrucciani,,,40.355691,18.196797,0,0,0,
+14,Puglia,,3,Struttura privata,CdC Professor Brodetti - Foggia,,,41.459441,15.535732,0,0,0,
+14,Puglia,,3,Struttura privata,CdC Salus,,,40.629157,17.923878,0,0,0,
+14,Puglia,,3,Struttura privata,CdC San Camillo - Taranto,,,40.490167,17.230116,0,0,0,
+14,Puglia,,3,Struttura privata,CdC San Francesco - Galatina,,,40.173034,18.166533,0,0,0,
+14,Puglia,,3,Struttura privata,CdC San Michele - Manfredonia,,,41.635116,15.914041,0,0,0,
+14,Puglia,,3,Struttura privata,CdC Santa Maria - Bari,,,41.108483,16.862066,0,0,0,
+14,Puglia,,3,Struttura privata,CdC Santa Maria Bambina - Foggia,,,41.467672,15.526881,0,0,0,
+14,Puglia,,3,Struttura privata,CdC Santa Rita - Taranto,,,40.458839,17.267213,0,0,0,
+14,Puglia,,3,Struttura privata,CdC Villa Bianca - Martina Franca,,,40.630887,17.316386,0,0,0,
+14,Puglia,,3,Struttura privata,CdC Villa Verde - Lecce,,,40.342265,18.142740,0,0,0,
+14,Puglia,,3,Struttura privata,CdC Villa Verde - Taranto,,,40.447792,17.275139,0,0,0,
+14,Puglia,,3,Struttura privata,Centro Medico Riabilitazione Maugeri - Ginosa,,,40.427227,16.886305,0,0,0,
