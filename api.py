@@ -259,6 +259,53 @@ def get_comuni_map():
     else:
         return jsonify({'meggage':'The \'data\' parameter is mandatory!'})
 
+##########################################################################
+# HOSPITALS DATA: NOT OFFICIAL!
+##########################################################################
+@app.route('/ospedali/covid19')
+def get_covid19_hospitals():
+    # Arguments
+    codice_regione = request.args.get('cod_reg')
+    # Read DPC CSV
+    df = pd.read_csv("static/ospedali/ospedali_COVID19.csv",sep=';')
+    # Apply filter if argument is passed
+    if codice_regione:
+        df = df[df['codice_regione'] == int(codice_regione)]
+        
+    gdf = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df.long, df.lat))
+    # Out GeoJSON result
+    out_geojson = json.loads(gdf.to_json())
+    return jsonify(out_geojson)
+
+@app.route('/ospedali/covid19/post')
+def get_covid19_hospitals_post():
+    # Arguments
+    codice_regione = request.args.get('cod_reg')
+    # Read DPC CSV
+    df = pd.read_csv("static/ospedali/ospedali_COVID19_post_acuzie.csv",sep=';')
+    # Apply filter if argument is passed
+    if codice_regione:
+        df = df[df['codice_regione'] == int(codice_regione)]
+        
+    gdf = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df.long, df.lat))
+    # Out GeoJSON result
+    out_geojson = json.loads(gdf.to_json())
+    return jsonify(out_geojson)
+
+@app.route('/ospedali/covid19/altri')
+def get_covid19_hospitals_other():
+    # Arguments
+    codice_regione = request.args.get('cod_reg')
+    # Read DPC CSV
+    df = pd.read_csv("static/ospedali/ospedali_COVID19_altre_strutture.csv",sep=';')
+    # Apply filter if argument is passed
+    if codice_regione:
+        df = df[df['codice_regione'] == int(codice_regione)]
+        
+    gdf = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df.long, df.lat))
+    # Out GeoJSON result
+    out_geojson = json.loads(gdf.to_json())
+    return jsonify(out_geojson)
 
 if __name__ == '__main__':
     app.run(debug=True)

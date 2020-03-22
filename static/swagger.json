@@ -143,8 +143,6 @@
                 }
             }
         },
-
-
         "/comuni":{
             "get":{
                 "summary":"NOT Official - Daily updates about infection distribution at municipalities level in JSON format",
@@ -215,6 +213,60 @@
                     "description": "ISTAT code",
                     "type": "string",
                     "example": "68028"
+                }],
+                "responses": {
+                    "200": {
+                      "description": "OK"
+                    }
+                }
+            }
+        },
+        "/ospedali/covid19":{
+            "get":{
+                "summary":"COVID-19 hospitals GeoJSON points",
+                "parameters": [{
+                    "name": "cod_reg",
+                    "in": "query",
+                    "required": false,
+                    "description": "ISTAT code of the region",
+                    "type": "string",
+                    "example": "14"
+                }],
+                "responses": {
+                    "200": {
+                      "description": "OK"
+                    }
+                }
+            }
+        },
+        "/ospedali/covid19/post":{
+            "get":{
+                "summary":"Post acute COVID-19 hospitals GeoJSON points",
+                "parameters": [{
+                    "name": "cod_reg",
+                    "in": "query",
+                    "required": false,
+                    "description": "ISTAT code of the region",
+                    "type": "string",
+                    "example": "14"
+                }],
+                "responses": {
+                    "200": {
+                      "description": "OK"
+                    }
+                }
+            }
+        },
+        "/ospedali/covid19/altri":{
+            "get":{
+                "summary":"Not COVID-19 specifical structures GeoJSON points",
+                "parameters": [{
+                    "name": "cod_reg",
+                    "in": "query",
+                    "required": false,
+                    "description": "ISTAT code of the region",
+                    "type": "string",
+                    "example": "14"
                 }],
                 "responses": {
                     "200": {
