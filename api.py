@@ -137,6 +137,8 @@ def get_regioni_map():
         daily_df.loc[daily_df['denominazione_regione'].str.contains("Bolzano"), ["codice_regione"]] = 42
         # Merge dataframes to obtain one complete geodataframe
         out_gdf = gdf.merge(daily_df, on='codice_regione')
+        # Rename density field
+        out_gdf.rename(columns = {"popKmq2011": "pop_kmq_2011"}, inplace = True)
         # Delete unuseful or redundant columns
         out_gdf.drop(columns=['DEN_REG', 'lat','long'],inplace=True)
         # Out GeoJSON result
@@ -190,6 +192,8 @@ def get_province_map():
         daily_df = df_[df_['data'].str.contains(data)]
         # Merge dataframes to obtain one complete geodataframe
         out_gdf = gdf.merge(daily_df, on='codice_provincia')
+        # Rename density field
+        out_gdf.rename(columns = {"popKmq2011": "pop_kmq_2011"}, inplace = True)
         # Delete unuseful or redundant columns
         out_gdf.drop(columns=['SIGLA','COD_REG','DEN_PROV','lat','long','stato'],inplace=True)
         # Out GeoJSON result
@@ -250,7 +254,8 @@ def get_comuni_map():
             daily_df = daily_df[daily_df['codice_istat'] == int(codice_istat)]
         # Merge dataframes to obtain one complete geodataframe
         out_gdf = gdf.merge(daily_df, on='codice_istat')
-        
+        # Rename density field
+        out_gdf.rename(columns = {"popKmq2011": "pop_kmq_2011"}, inplace = True)
         # Delete unuseful or redundant columns
         out_gdf.drop(columns=['COMUNE','Shape_Area','Shape_Leng'],inplace=True)
         # Out GeoJSON result
