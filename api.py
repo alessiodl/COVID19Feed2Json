@@ -87,34 +87,13 @@ def get_regioni():
         df = df[df['data'].str.contains(data)]
     if codice_regione:
         df = df[df['codice_regione'] == int(codice_regione) ]
-    # Create GeoJSON output
-    geojson = {'type':'FeatureCollection', 'features':[]}
-    for index, row in df.iterrows():
-        # exlude not georeferenced data
-        if row['long'] != 0 and row['lat'] != 0:
-            feature = {'type':'Feature','properties':{
-                        'data':row['data'],
-                        'codice_regione': row['codice_regione'],
-                        'denominazione_regione': row['denominazione_regione'],
-                        'totale_casi': row['totale_casi'],
-                        'ricoverati_con_sintomi': row['ricoverati_con_sintomi'],
-                        'terapia_intensiva': row['terapia_intensiva'],
-                        'totale_ospitalizzati': row['totale_ospedalizzati'],
-                        'isolamento_domiciliare': row['isolamento_domiciliare'],
-                        'totale_attualmente_positivi': row['totale_attualmente_positivi'],
-                        'dimessi_guariti': row['dimessi_guariti'],
-                        'deceduti': row['deceduti'],
-                        'tamponi': row['tamponi']
-                        },
-                        'geometry':{
-                            'type':'Point',
-                            'coordinates':[ 
-                                row['long'], row['lat'] 
-                            ]
-                        }
-                    }
-            geojson['features'].append(feature)
-    return geojson
+    # exlude not georeferenced data
+    df_ = df[df['lat'] != 0]
+    gdf = gpd.GeoDataFrame(df_, geometry=gpd.points_from_xy(df_.long, df_.lat))
+    # Out GeoJSON result
+    out_geojson = json.loads(gdf.to_json())
+    return jsonify(out_geojson)
+
 
 @app.route('/regioni/map')
 def get_regioni_map():
@@ -159,7 +138,7 @@ def get_province():
     sigla_provincia = request.args.get('sigla_prov')
     # Read DPC CSV
     df = pd.read_csv("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-province/dpc-covid19-ita-province.csv")
-    # Apply filter if arguments are passed
+    # Apply filters if arguments are passed
     if data:
         df = df[df['data'].str.contains(data)]
     if codice_regione:
