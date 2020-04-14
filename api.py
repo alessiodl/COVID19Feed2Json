@@ -99,6 +99,7 @@ def get_regioni():
 def get_regioni_map():
     # Date argument
     data = request.args.get('data')
+    codice_regione = request.args.get('cod_reg')
     # Apply filter if argument is passed
     if data:
         # Read Local GeoJSON
@@ -110,6 +111,8 @@ def get_regioni_map():
         gdf.loc[gdf['DEN_REG'] == "Bolzano", ["codice_regione"]] = 42
         # Read DPC CSV
         df = pd.read_csv("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-regioni/dpc-covid19-ita-regioni.csv")
+        if codice_regione:
+            df = df[df['codice_regione'] == int(codice_regione) ]
         daily_df = df[df['data'].str.contains(data)]
         # Change codice_regione from 4 to 41 and 42 for trento and bolzano to permit a correct join
         daily_df.loc[daily_df['denominazione_regione'].str.contains("Trento"), ["codice_regione"]] = 41
@@ -158,6 +161,7 @@ def get_province():
 def get_province_map():
     # Date argument
     data = request.args.get('data')
+    codice_regione = request.args.get('cod_reg')
     # Apply filter if argument is passed
     if data:
         # Read Local GeoJSON
@@ -166,6 +170,8 @@ def get_province_map():
         gdf.rename(columns = {"COD_PROV": "codice_provincia"}, inplace = True)
         # Read DPC CSV
         df = pd.read_csv("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-province/dpc-covid19-ita-province.csv")
+        if codice_regione:
+            df = df[df['codice_regione'] == int(codice_regione) ]
         # exlude 'In fase di definizione/aggiornamento' where sigla_provincia is empty
         df_ = df[df['lat'] != 0]
         daily_df = df_[df_['data'].str.contains(data)]
@@ -192,7 +198,7 @@ def get_comuni():
     codice_provincia = request.args.get('cod_prov')
     codice_istat = request.args.get('cod_istat')
     # Read DPC CSV
-    df = pd.read_csv("https://raw.githubusercontent.com/alessiodl/COVID19Abruzzo/master/dati-comuni/izsam-covid19-ita-comuni.csv")
+    df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/dati-comuni/izsam-covid19-ita-comuni.csv")
     # Apply filter if arguments are passed
     if data:
         df = df[df['data'].str.contains(data)]
@@ -223,7 +229,7 @@ def get_comuni_map():
         # Rename GDF fields in accord with DPC field names
         gdf.rename(columns = {"PRO_COM": "codice_istat"}, inplace = True)
         # Read DPC CSV
-        df = pd.read_csv("https://raw.githubusercontent.com/alessiodl/COVID19Abruzzo/master/dati-comuni/izsam-covid19-ita-comuni.csv")
+        df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/dati-comuni/izsam-covid19-ita-comuni.csv")
         daily_df = df[df['data'].str.contains(data)]
         if codice_regione:
             daily_df = daily_df[daily_df['codice_regione'] == int(codice_regione) ]
