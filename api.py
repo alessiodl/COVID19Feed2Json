@@ -8,6 +8,7 @@ import numpy as np
 import pandas as pd
 import geopandas as gpd
 import os,sys
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 CORS(app)
@@ -189,7 +190,7 @@ def get_province_map():
         return jsonify({'meggage':'The \'data\' parameter is mandatory!'})
 
 ##########################################################################
-# DISTRIBUTION DATA: COMUNI (NOT OFFICIAL!)
+# DISTRIBUTION DATA: COMUNI 
 ##########################################################################
 @app.route('/comuni')
 def get_comuni():
@@ -228,6 +229,17 @@ def get_comuni_map():
         gdf.rename(columns = {"COD_ISTAT": "CODICE_ISTAT"}, inplace = True)
         # Read IZS CSV
         df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/izs-dati/ESITI_COMUNE_TOT.csv")
+        # Apply mandatory data filter
+        # N.B. Se il dato dei comuni non è stato ancora aggiornato l'end point ritorna i dati del giorno precedente a quello richiesto
+        found_data = df[df['AGGIORNAMENTO'].str.contains(data)].index.tolist()
+        if len(found_data) > 0:
+            df = df[df['AGGIORNAMENTO'].str.contains(data)]
+        else:
+            requested_date = datetime.strptime(data, '%Y-%m-%d')
+            before_date = requested_date - timedelta(1)
+            before_date_str = before_date.strftime('%Y-%m-%d')
+            
+            df = df[df['AGGIORNAMENTO'].str.contains(before_date_str)]
         # Apply filter if argument is passed
         if sigla_provincia:
             df = df[df['PROVINCIA'] == sigla_provincia]
