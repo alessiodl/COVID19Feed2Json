@@ -159,7 +159,7 @@
         },
         "/comuni":{
             "get":{
-                "summary":"NOT Official - Daily updates about infection distribution at municipalities level in JSON format",
+                "summary":"Daily updates about infection distribution at municipalities level in JSON format",
                 "parameters": [{
                     "name": "data",
                     "in": "query",
@@ -191,7 +191,7 @@
         },
         "/comuni/map":{
             "get":{
-                "summary":"NOT Official - Daily updates about infection distribution at municipalities level in GeoJSON Polygon format",
+                "summary":"Daily updates about infection distribution at municipalities level in GeoJSON Polygon format",
                 "parameters": [{
                     "name": "data",
                     "in": "query",
