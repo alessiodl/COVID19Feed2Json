@@ -168,26 +168,19 @@
                     "type": "string",
                     "example": "2020-03-18"
                 },{
-                    "name": "cod_reg",
+                    "name": "sigla_prov",
                     "in": "query",
                     "required": false,
-                    "description": "ISTAT code of the region",
+                    "description": "Province short name",
                     "type": "string",
-                    "example": "13"
-                },{
-                    "name": "cod_prov",
-                    "in": "query",
-                    "required": false,
-                    "description": "ISTAT code of the province",
-                    "type": "string",
-                    "example": "68"
+                    "example": "TE"
                 },{
                     "name": "cod_istat",
                     "in": "query",
                     "required": false,
-                    "description": "ISTAT code",
+                    "description": "Municipality ISTAT code",
                     "type": "string",
-                    "example": "68028"
+                    "example": "67025"
                 }],
                 "responses": {
                     "200": {
@@ -205,28 +198,21 @@
                     "required": true,
                     "description": "Reference date",
                     "type": "string",
-                    "example": "2020-03-18"
+                    "example": "2020-04-21"
                 },{
-                    "name": "cod_reg",
+                    "name": "sigla_prov",
                     "in": "query",
                     "required": false,
-                    "description": "ISTAT code of the region",
+                    "description": "Province short name",
                     "type": "string",
-                    "example": "13"
-                },{
-                    "name": "cod_prov",
-                    "in": "query",
-                    "required": false,
-                    "description": "ISTAT code of the province",
-                    "type": "string",
-                    "example": "68"
+                    "example": "TE"
                 },{
                     "name": "cod_istat",
                     "in": "query",
                     "required": false,
-                    "description": "ISTAT code",
+                    "description": "Municipality ISTAT code",
                     "type": "string",
-                    "example": "68028"
+                    "example": "67025"
                 }],
                 "responses": {
                     "200": {

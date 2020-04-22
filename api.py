@@ -4,6 +4,7 @@ from flask_swagger_ui import get_swaggerui_blueprint
 import logging
 import requests
 import json
+import numpy as np
 import pandas as pd
 import geopandas as gpd
 import os,sys
@@ -194,60 +195,54 @@ def get_province_map():
 def get_comuni():
     # Arguments
     data = request.args.get('data')
-    codice_regione = request.args.get('cod_reg')
-    codice_provincia = request.args.get('cod_prov')
+    sigla_provincia = request.args.get('sigla_prov')
     codice_istat = request.args.get('cod_istat')
     # Read DPC CSV
-    df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/dati-comuni/izsam-covid19-ita-comuni.csv")
+    df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/izs-dati/COVID_IZSAM.csv")
     # Apply filter if arguments are passed
     if data:
-        df = df[df['data'].str.contains(data)]
-    if codice_regione:
-        df = df[df['codice_regione'] == int(codice_regione) ]
-    if codice_provincia:
-        df = df[df['codice_provincia'] == int(codice_provincia)]
+        df = df[df['DATA_TAMPONE'].str.contains(data)]
+    if sigla_provincia:
+        df = df[df['PROVINCIA'] == sigla_provincia]
     if codice_istat:
-        df = df[df['codice_istat'] == int(codice_istat)]
+        df = df[df['CODICE_ISTAT_COMUNE'] == int(codice_istat)]
     # Sort by number of cases
-    df = df.sort_values(by='totale_casi', ascending=False)
+    df = df.sort_values(by='DATA_TAMPONE', ascending=False)
     # Out GeoJSON result
     out_geojson = json.loads(df.to_json(orient='records'))
     return jsonify(out_geojson)
 
 @app.route('/comuni/map')
 def get_comuni_map():
-    # Date argument - mandatory
-    data = request.args.get('data')
+    # Esito arguments - mandatory
+    esito = request.args.get('esito')
     # ISTAT arguments - optional
-    codice_regione = request.args.get('cod_reg')
-    codice_provincia = request.args.get('cod_prov')
+    data = request.args.get('data')
+    sigla_provincia = request.args.get('sigla_prov')
     codice_istat = request.args.get('cod_istat')
-    # Apply filter if argument is passed
     if data:
-        # Read Local GeoJSON
-        gdf = gpd.read_file('static/geo/abruzzo_simple.shp')
-        # Rename GDF fields in accord with DPC field names
-        gdf.rename(columns = {"PRO_COM": "codice_istat"}, inplace = True)
-        # Read DPC CSV
-        df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/dati-comuni/izsam-covid19-ita-comuni.csv")
-        daily_df = df[df['data'].str.contains(data)]
-        if codice_regione:
-            daily_df = daily_df[daily_df['codice_regione'] == int(codice_regione) ]
-        if codice_provincia:
-            daily_df = daily_df[daily_df['codice_provincia'] == int(codice_provincia)]
+        # Read Local Shapefile
+        gdf = gpd.read_file('static/geo/comuni_abruzzo_simple.shp')
+        # Delete and Rename some GDF fields 
+        gdf.drop(columns=['COMUNE','SIGLA_PROV'], inplace=True)
+        gdf.rename(columns = {"COD_ISTAT": "CODICE_ISTAT"}, inplace = True)
+        # Read IZS CSV
+        df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/izs-dati/ESITI_COMUNE_TOT.csv")
+        # Apply filter if argument is passed
+        if sigla_provincia:
+            df = df[df['PROVINCIA'] == sigla_provincia]
         if codice_istat:
-            daily_df = daily_df[daily_df['codice_istat'] == int(codice_istat)]
+            df = df[df['CODICE_ISTAT'] == int(codice_istat)]
         # Merge dataframes to obtain one complete geodataframe
-        out_gdf = gdf.merge(daily_df, on='codice_istat')
+        out_gdf = gdf.merge(df, on='CODICE_ISTAT')
         # Rename density field
-        out_gdf.rename(columns = {"popKmq2011": "pop_kmq_2011"}, inplace = True)
-        # Delete unuseful or redundant columns
-        out_gdf.drop(columns=['COMUNE','Shape_Area','Shape_Leng'],inplace=True)
+        out_gdf.drop_duplicates(inplace=True)
         # Out GeoJSON result
         out_geojson = json.loads(out_gdf.to_json())
         return jsonify(out_geojson)
     else:
-        return jsonify({'meggage':'The \'data\' parameter is mandatory!'})
+        return jsonify({'meggage':'The \'data\' parameter is mandatory!'}) 
+        
 
 ##########################################################################
 # HOSPITALS DATA: NOT OFFICIAL!
