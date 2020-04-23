@@ -238,7 +238,6 @@ def get_comuni_map():
             requested_date = datetime.strptime(data, '%Y-%m-%d')
             before_date = requested_date - timedelta(1)
             before_date_str = before_date.strftime('%Y-%m-%d')
-            
             df = df[df['AGGIORNAMENTO'].str.contains(before_date_str)]
         # Apply filter if argument is passed
         if sigla_provincia:
