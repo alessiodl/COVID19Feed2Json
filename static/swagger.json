@@ -171,7 +171,7 @@
                     "name": "sigla_prov",
                     "in": "query",
                     "required": false,
-                    "description": "Province short name",
+                    "description": "Province short name, also as comma separated list",
                     "type": "string",
                     "example": "TE"
                 },{

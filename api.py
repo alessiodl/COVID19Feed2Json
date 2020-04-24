@@ -204,7 +204,8 @@ def get_comuni():
     if data:
         df = df[df['DATA_TAMPONE'].str.contains(data)]
     if sigla_provincia:
-        df = df[df['PROVINCIA'] == sigla_provincia]
+        list_sigla_provincia = sigla_provincia.split(',')
+        df = df[df['PROVINCIA'].isin(list_sigla_provincia)]
     if codice_istat:
         df = df[df['CODICE_ISTAT_COMUNE'] == int(codice_istat)]
     # Sort by number of cases
