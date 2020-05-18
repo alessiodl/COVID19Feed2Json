@@ -199,7 +199,12 @@ def get_comuni():
     sigla_provincia = request.args.get('sigla_prov')
     codice_istat = request.args.get('cod_istat')
     # Read DPC CSV
-    df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/izs-dati/COVID_IZSAM.csv",encoding='Windows-1252')
+    try:
+        # print('charcode: utf-8')
+        df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/izs-dati/COVID_IZSAM.csv")
+    except:
+        # print('charcode: Windows-1252')
+        df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/izs-dati/COVID_IZSAM.csv",encoding='Windows-1252')
     # Apply filter if arguments are passed
     if data:
         df = df[df['DATA_TAMPONE'].str.contains(data)]
