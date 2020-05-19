@@ -221,6 +221,28 @@
                 }
             }
         },
+        "/asl/totals":{
+            "get":{
+                "summary":"Summary data about IZSAM analysis by ASL",
+                "parameters":[],
+                "responses":{
+                    "200":{
+                        "description":"OK"
+                    }
+                }
+            }
+        },
+        "/asl/daily":{
+            "get":{
+                "summary":"Daily updates about IZSAM analysis by ASL",
+                "parameters":[],
+                "responses":{
+                    "200":{
+                        "description":"OK"
+                    }
+                }
+            }
+        },
         "/ospedali/covid19":{
             "get":{
                 "summary":"COVID-19 hospitals GeoJSON points",

@@ -198,7 +198,7 @@ def get_comuni():
     data = request.args.get('data')
     sigla_provincia = request.args.get('sigla_prov')
     codice_istat = request.args.get('cod_istat')
-    # Read DPC CSV
+    # Read IZSAM CSV
     try:
         # print('charcode: utf-8')
         df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/izs-dati/COVID_IZSAM.csv")
@@ -259,7 +259,29 @@ def get_comuni_map():
         return jsonify(out_geojson)
     else:
         return jsonify({'meggage':'The \'data\' parameter is mandatory!'}) 
+    
+##########################################################################
+# AGGREGATIONS: ASL ABRUZZO
+##########################################################################
+@app.route('/asl/totals')
+def get_asl_totals():
+    try:
+        df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/izs-dati/ESITI_ALS_TOT_LATEST.csv")    
+    except:
+        df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/izs-dati/ESITI_ALS_TOT_LATEST.csv", encoding='Windows-1252')  
+
+    out_json = json.loads(df.to_json(orient='records'))
+    return jsonify(out_json)
+
+@app.route('/asl/daily')
+def get_asl_daily():
+    try:
+        df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/izs-dati/ESITI_ALS_GIORNALIERI_LATEST.csv")
+    except:
+        df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/izs-dati/ESITI_ALS_GIORNALIERI_LATEST.csv", encoding='Windows-1252')
         
+    out_json = json.loads(df.to_json(orient='records'))
+    return jsonify(out_json)
 
 ##########################################################################
 # HOSPITALS DATA: NOT OFFICIAL!
@@ -308,7 +330,6 @@ def get_covid19_hospitals_other():
     # Out GeoJSON result
     out_geojson = json.loads(gdf.to_json())
     return jsonify(out_geojson)
-
 
 
 if __name__ == '__main__':
