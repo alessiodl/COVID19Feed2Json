@@ -266,9 +266,9 @@ def get_comuni_map():
 @app.route('/asl/totals')
 def get_asl_totals():
     try:
-        df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/izs-dati/ESITI_ALS_TOT_LATEST.csv")    
+        df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/izs-dati/ESITI_ASL_TOT_LATEST.csv")    
     except:
-        df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/izs-dati/ESITI_ALS_TOT_LATEST.csv", encoding='Windows-1252')  
+        df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/izs-dati/ESITI_ASL_TOT_LATEST.csv", encoding='Windows-1252')  
 
     out_json = json.loads(df.to_json(orient='records'))
     return jsonify(out_json)
@@ -276,9 +276,9 @@ def get_asl_totals():
 @app.route('/asl/daily')
 def get_asl_daily():
     try:
-        df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/izs-dati/ESITI_ALS_GIORNALIERI_LATEST.csv")
+        df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/izs-dati/ESITI_ASL_GIORNALIERI_LATEST.csv")
     except:
-        df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/izs-dati/ESITI_ALS_GIORNALIERI_LATEST.csv", encoding='Windows-1252')
+        df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/izs-dati/ESITI_ASL_GIORNALIERI_LATEST.csv", encoding='Windows-1252')
         
     out_json = json.loads(df.to_json(orient='records'))
     return jsonify(out_json)
