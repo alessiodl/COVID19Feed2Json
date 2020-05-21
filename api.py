@@ -263,8 +263,8 @@ def get_comuni_map():
 ##########################################################################
 # AGGREGATIONS: ASL ABRUZZO
 ##########################################################################
-@app.route('/asl/totals')
-def get_asl_totals():
+@app.route('/esiti/asl/totals')
+def get_esiti_asl_totals():
     try:
         df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/izs-dati/ESITI_ASL_TOT_LATEST.csv")    
     except:
@@ -273,13 +273,39 @@ def get_asl_totals():
     out_json = json.loads(df.to_json(orient='records'))
     return jsonify(out_json)
 
-@app.route('/asl/daily')
-def get_asl_daily():
+@app.route('/esiti/asl/daily')
+def get_esiti_asl_daily():
+    # Optional Arguments
+    asl = request.args.get('asl')
     try:
         df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/izs-dati/ESITI_ASL_GIORNALIERI_LATEST.csv")
     except:
         df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/izs-dati/ESITI_ASL_GIORNALIERI_LATEST.csv", encoding='Windows-1252')
+
+    if asl:
+        list_asl = asl.split(',')
+        df = df[df['ASL_RICHIEDENTE'].isin(list_asl)]
         
+    out_json = json.loads(df.to_json(orient='records'))
+    return jsonify(out_json)
+
+##########################################################################
+# AGGREGATIONS: PROVINCE ABRUZZO
+##########################################################################
+@app.route('/esiti/prov/daily')
+
+def get_esiti_prov_daily():
+    # Optional Arguments
+    prov  = request.args.get('sigla_prov')
+    try:
+        df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/izs-dati/ESITI_PROV_GIORNALIERI_LATEST.csv")
+    except:
+        df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/izs-dati/ESITI_PROV_GIORNALIERI_LATEST.csv", encoding='Windows-1252')
+    
+    if prov:
+        list_prov = prov.split(',')
+        df = df[df['PROVINCIA'].isin(list_prov)]
+
     out_json = json.loads(df.to_json(orient='records'))
     return jsonify(out_json)
 

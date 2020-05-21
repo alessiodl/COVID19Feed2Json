@@ -221,7 +221,7 @@
                 }
             }
         },
-        "/asl/totals":{
+        "/esiti/asl/totals":{
             "get":{
                 "summary":"Summary data about IZSAM analysis by ASL",
                 "parameters":[],
@@ -232,10 +232,35 @@
                 }
             }
         },
-        "/asl/daily":{
+        "/esiti/asl/daily":{
             "get":{
                 "summary":"Daily updates about IZSAM analysis by ASL",
-                "parameters":[],
+                "parameters":[{
+                    "name": "asl",
+                    "in": "query",
+                    "required": false,
+                    "description": "ASL short name, also as comma separated list",
+                    "type": "string",
+                    "example": "TE"
+                }],
+                "responses":{
+                    "200":{
+                        "description":"OK"
+                    }
+                }
+            }
+        },
+        "/esiti/prov/daily":{
+            "get":{
+                "summary":"Daily updates about IZSAM analysis by Province",
+                "parameters":[{
+                    "name": "sigla_prov",
+                    "in": "query",
+                    "required": false,
+                    "description": "Province short name, also as comma separated list",
+                    "type": "string",
+                    "example": "TE"
+                }],
                 "responses":{
                     "200":{
                         "description":"OK"
