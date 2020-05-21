@@ -293,7 +293,6 @@ def get_esiti_asl_daily():
 # AGGREGATIONS: PROVINCE ABRUZZO
 ##########################################################################
 @app.route('/esiti/prov/daily')
-
 def get_esiti_prov_daily():
     # Optional Arguments
     prov  = request.args.get('sigla_prov')
@@ -305,6 +304,19 @@ def get_esiti_prov_daily():
     if prov:
         list_prov = prov.split(',')
         df = df[df['PROVINCIA'].isin(list_prov)]
+
+    out_json = json.loads(df.to_json(orient='records'))
+    return jsonify(out_json)
+
+##########################################################################
+# AGGREGATIONS: PROVINCE ABRUZZO
+##########################################################################
+@app.route('/esiti/tempi')
+def get_esiti_tempi():
+    try:
+        df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/izs-dati/ESITI_TEMPI_REF_LATEST.csv")
+    except:
+        df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/izs-dati/ESITI_TEMPI_REF_LATEST.csv", encoding='Windows-1252')
 
     out_json = json.loads(df.to_json(orient='records'))
     return jsonify(out_json)
