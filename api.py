@@ -322,6 +322,31 @@ def get_esiti_tempi():
     return jsonify(out_json)
 
 ##########################################################################
+# AGGREGATIONS: ESAMI SIEROLOGICI
+##########################################################################
+@app.route('/esami/sierologici')
+def get_esami_sierologici():
+    # Mandatory Arguments
+    convenzione = request.args.get('conv')
+    # Optional Arguments
+    asl = request.args.get('asl')
+    try:
+        if convenzione == 'N':
+            df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/izs-dati/ESAMI_SIERO_LATEST.csv")
+        elif convenzione == 'Y':
+            df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/izs-dati/ESAMI_SIERO_CONV_LATEST.csv")
+    except:
+        if convenzione == 'N':
+            df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/izs-dati/ESAMI_SIERO_CONV_LATEST.csv", encoding='Windows-1252')
+        elif convenzione == 'Y':
+            df = pd.read_csv("https://raw.githubusercontent.com/IZSAM-StatGIS/COVID19-Abruzzo/master/izs-dati/ESAMI_SIERO_CONV_LATEST.csv", encoding='Windows-1252')
+    if asl:
+        list_asl = asl.split(',')
+        df = df[df['ASL_RICHIEDENTE'].isin(list_asl)]
+        
+    out_json = json.loads(df.to_json(orient='records'))
+    return jsonify(out_json)
+##########################################################################
 # HOSPITALS DATA: NOT OFFICIAL!
 ##########################################################################
 @app.route('/ospedali/covid19')

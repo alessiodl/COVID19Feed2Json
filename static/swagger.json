@@ -279,6 +279,31 @@
                 }
             }
         },
+        "/esami/sierologici":{
+            "get":{
+                "summary":"Daily updates about IZSAM serological tests by ASL",
+                "parameters":[{
+                    "name": "conv",
+                    "in": "query",
+                    "required": true,
+                    "description": "Private agreement (N or Y)",
+                    "type": "string",
+                    "example": "N"
+                },{
+                    "name": "asl",
+                    "in": "query",
+                    "required": false,
+                    "description": "ASL short name, also as comma separated list",
+                    "type": "string",
+                    "example": "TE"
+                }],
+                "responses":{
+                    "200":{
+                        "description":"OK"
+                    }
+                }
+            }
+        },
         "/ospedali/covid19":{
             "get":{
                 "summary":"COVID-19 hospitals GeoJSON points",
