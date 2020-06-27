@@ -153,7 +153,9 @@ def get_province():
     if sigla_provincia:
         df = df[df['sigla_provincia'] == str(sigla_provincia)]
     # exlude 'In fase di definizione/aggiornamento' where sigla_provincia is empty
+    df = df.fillna(0)
     df_ = df[df['lat'] != 0]
+    print(df_)
     gdf = gpd.GeoDataFrame(df_, geometry=gpd.points_from_xy(df_.long, df_.lat))
     # Out GeoJSON result
     out_geojson = json.loads(gdf.to_json())
@@ -175,6 +177,7 @@ def get_province_map():
         if codice_regione:
             df = df[df['codice_regione'] == int(codice_regione) ]
         # exlude 'In fase di definizione/aggiornamento' where sigla_provincia is empty
+        df = df.fillna(0)
         df_ = df[df['lat'] != 0]
         daily_df = df_[df_['data'].str.contains(data)]
         # Merge dataframes to obtain one complete geodataframe
